@@ -53,4 +53,13 @@ class Memocontroller extends Controller
 
         return redirect('/memos');
     }
+
+public function destroy($id){
+    $memo = Memo::find($id);
+    $memo->delete();
+
+    return redirect(route('memos.index'));
+
+}
+
 }
