@@ -7,16 +7,19 @@ use Illuminate\Http\Request;
 
 class Memocontroller extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $memos = Memo::all();
         return view('memos.index', ['memos' => $memos]);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('memos.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $memo = new Memo();
 
         $memo->title = $request->title;
@@ -32,5 +35,22 @@ class Memocontroller extends Controller
     {
         $memo = Memo::find($id);
         return view('memos.show', ['memo' => $memo]);
+    }
+    public function edit($id)
+    {
+        $memo = Memo::find($id);
+        return view('memos.edit', ['memo' => $memo]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $memo = Memo::find($id);
+
+        $memo->title = $request->title;
+        $memo->body = $request->body;
+
+        $memo->save();
+
+        return redirect('/memos');
     }
 }
